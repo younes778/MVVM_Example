@@ -1,10 +1,10 @@
 package apps.younes.mvvm_with_roomdb.activities;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 
 import apps.younes.mvvm_with_roomdb.R;
 import apps.younes.mvvm_with_roomdb.models.NicePlace;
-import apps.younes.mvvm_with_roomdb.viewmodels.MainActivityViewModel;
 import apps.younes.mvvm_with_roomdb.viewmodels.PlaceDetailsActivityViewModel;
 
 public class PlaceDetailsActivity extends AppCompatActivity {
