@@ -22,24 +22,34 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
 
     private static final String TAG = "NicePlaceRecyclerAdapte";
 
+    private OnPlaceListener onPlaceListener;
     private List<NicePlace> mList = new ArrayList<>();
     private Context mContext;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CircleImageView image;
         TextView text;
+        OnPlaceListener onPlaceListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView,OnPlaceListener onPlaceListener) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             text = itemView.findViewById(R.id.title);
+            this.onPlaceListener = onPlaceListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPlaceListener.onPlaceClickListener(getAdapterPosition());
         }
     }
 
-    public NicePlaceRecyclerAdapter(Context mContext, List<NicePlace> mList) {
+    public NicePlaceRecyclerAdapter(Context mContext, List<NicePlace> mList,OnPlaceListener onPlaceListener) {
         this.mList = mList;
         this.mContext = mContext;
+        this.onPlaceListener = onPlaceListener;
     }
 
 
@@ -47,23 +57,21 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.listitem_niceplace, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,onPlaceListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Glide.with(mContext).asBitmap().load(mList.get(i).getImageUrl()).into(viewHolder.image);
         viewHolder.text.setText(mList.get(i).getTitle());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,"item "+i+" clicked",Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    public interface OnPlaceListener{
+        void onPlaceClickListener(int position);
     }
 }

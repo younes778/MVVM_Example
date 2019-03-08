@@ -2,6 +2,7 @@ package apps.younes.mvvm_with_roomdb.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.opengl.Visibility;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import apps.younes.mvvm_with_roomdb.adapters.NicePlaceRecyclerAdapter;
 import apps.younes.mvvm_with_roomdb.models.NicePlace;
 import apps.younes.mvvm_with_roomdb.viewmodels.MainActivityViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NicePlaceRecyclerAdapter.OnPlaceListener {
 
     private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivityViewModel.addNewValue(new NicePlace("Washington", "https://i.imgur.com/ZcLLrkY.jpg"));
+                mainActivityViewModel.addNewValue(new NicePlace("Washington", "https://i.imgur.com/ZcLLrkY.jpg","Talent she for lively eat led sister. Entrance strongly packages she out rendered get quitting denoting led. Dwelling confined improved it he no doubtful raptures. Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated. Worth of do doubt shall it their. Extensive existence up me contained he pronounce do. Excellence inquietude assistance precaution any impression man sufficient. "));
             }
         });
 
@@ -80,14 +81,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerAdapter = new NicePlaceRecyclerAdapter(this, mainActivityViewModel.getNicePlaces().getValue());
+        recyclerAdapter = new NicePlaceRecyclerAdapter(this, mainActivityViewModel.getNicePlaces().getValue(),this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     public void showProgress(boolean isVisible) {
         if (isVisible)
             progress.setVisibility(View.VISIBLE);
         else progress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPlaceClickListener(int position) {
+        Intent i = new Intent(this,PlaceDetailsActivity.class);
+        i.putExtra(PlaceDetailsActivity.SELECTED_PLACE,mainActivityViewModel.getNicePlaces().getValue().get(position));
+        startActivity(i);
     }
 }
