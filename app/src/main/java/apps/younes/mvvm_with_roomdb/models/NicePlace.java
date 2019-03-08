@@ -4,6 +4,10 @@ public class NicePlace {
     private String title;
     private String imageUrl;
 
+    public NicePlace() {
+
+    }
+
     public NicePlace(String title, String imageUrl) {
         this.title = title;
         this.imageUrl = imageUrl;
@@ -23,5 +27,13 @@ public class NicePlace {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "NicePlace{" +
+                "title='" + title + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 }
