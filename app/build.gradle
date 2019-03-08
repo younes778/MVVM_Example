@@ -6,8 +6,8 @@ android {
         applicationId "apps.younes.mvvm_with_roomdb"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -44,5 +44,11 @@ dependencies {
 
     // material design components
     implementation 'com.github.rey5137:material:1.2.5'
+
+    // Room DB
+    def room_version = "2.1.0-alpha04"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
 }
