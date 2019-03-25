@@ -89,9 +89,7 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
             ((HeaderViewHolder) viewHolder).text.setText(mList.get(cat).getName());
         } else {
             int cat = getCategory(i);
-            Log.e(TAG,"cat:"+cat);
             int index = getPlace(i,cat);
-            Log.e(TAG,"index:"+index);
             Glide.with(mContext).asBitmap().load(mList.get(cat).getPlaces().get(index).getImageUrl()).into(viewHolder.image);
             viewHolder.text.setText(mList.get(cat).getPlaces().get(index).getTitle());
         }
