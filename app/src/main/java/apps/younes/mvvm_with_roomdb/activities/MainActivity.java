@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity implements NicePlaceRecycler
     }
 
     @Override
-    public void onPlaceClickListener(int position) {
+    public void onPlaceClickListener(int category,int index) {
         Intent i = new Intent(this,PlaceDetailsActivity.class);
-        //i.putExtra(PlaceDetailsActivity.SELECTED_PLACE,mainActivityViewModel.getNicePlaces().getValue().get(position));
+        i.putExtra(PlaceDetailsActivity.SELECTED_PLACE,mainActivityViewModel.getNicePlaces().getValue().get(category).getPlaces().get(index));
         startActivity(i);
     }
 }

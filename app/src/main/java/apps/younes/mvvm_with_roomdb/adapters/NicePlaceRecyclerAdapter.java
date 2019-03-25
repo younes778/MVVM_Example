@@ -47,7 +47,9 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
 
         @Override
         public void onClick(View v) {
-            onPlaceListener.onPlaceClickListener(getAdapterPosition());
+            int category = getCategory(getAdapterPosition());
+            int index = getPlace(getAdapterPosition(),category);
+            onPlaceListener.onPlaceClickListener(category,index);
         }
     }
 
@@ -56,7 +58,12 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
         TextView text;
 
         public HeaderViewHolder(@NonNull View headerView) {
-            super(headerView, null);
+            super(headerView, new OnPlaceListener() {
+                @Override
+                public void onPlaceClickListener(int category, int index) {
+
+                }
+            });
             text = headerView.findViewById(R.id.title);
         }
     }
@@ -122,7 +129,7 @@ public class NicePlaceRecyclerAdapter extends RecyclerView.Adapter<NicePlaceRecy
     }
 
     public interface OnPlaceListener {
-        void onPlaceClickListener(int position);
+        void onPlaceClickListener(int category,int index);
     }
 
     private int getCategory(int position){
