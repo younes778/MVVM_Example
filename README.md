@@ -7,6 +7,7 @@ This Project is a sample app demonstrating a bench of recent Android technologie
 
 ![MVVM architecture](https://github.com/younes778/MVVM_with_RoomDB/blob/master/screenshots/MVVM_Architecture.PNG?raw=true)
 
+- RxJava / RxAndroid
 - RoomDB database
 - Retrofit web services API 
 - Unit Testing
