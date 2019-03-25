@@ -8,10 +8,11 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import apps.younes.mvvm_with_roomdb.models.NicePlace;
+import apps.younes.mvvm_with_roomdb.models.PlaceCategory;
 import apps.younes.mvvm_with_roomdb.repositories.NicePlaceRepository;
 
 public class MainActivityViewModel extends ViewModel {
-    private MutableLiveData<List<NicePlace>> mNicePlaces;
+    private MutableLiveData<List<PlaceCategory>> mNicePlaces;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private NicePlaceRepository repo;
 
@@ -23,15 +24,15 @@ public class MainActivityViewModel extends ViewModel {
         mNicePlaces= repo.getNicePlaces();
     }
 
-    public void addNewValue(final NicePlace nicePlace){
+    public void addNewValue(final int category,final NicePlace nicePlace){
         mIsUpdating.setValue(true);
         new AsyncTask<Void,Void,Void>(){
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                List<NicePlace> nicePlaces = mNicePlaces.getValue();
-                nicePlaces.add(nicePlace);
+                List<PlaceCategory> nicePlaces = mNicePlaces.getValue();
+                nicePlaces.get(category).addPlace(nicePlace.getTitle(),nicePlace.getImageUrl(),nicePlace.getDetails());
                 mNicePlaces.postValue(nicePlaces);
                 mIsUpdating.postValue(false);
             }
@@ -49,7 +50,7 @@ public class MainActivityViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<NicePlace>> getNicePlaces(){
+    public LiveData<List<PlaceCategory>> getNicePlaces(){
         return mNicePlaces;
     }
 

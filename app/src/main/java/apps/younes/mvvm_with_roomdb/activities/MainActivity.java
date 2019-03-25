@@ -20,6 +20,7 @@ import java.util.List;
 import apps.younes.mvvm_with_roomdb.R;
 import apps.younes.mvvm_with_roomdb.adapters.NicePlaceRecyclerAdapter;
 import apps.younes.mvvm_with_roomdb.models.NicePlace;
+import apps.younes.mvvm_with_roomdb.models.PlaceCategory;
 import apps.younes.mvvm_with_roomdb.viewmodels.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity implements NicePlaceRecyclerAdapter.OnPlaceListener {
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements NicePlaceRecycler
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mainActivityViewModel.init();
 
-        mainActivityViewModel.getNicePlaces().observe(this, new Observer<List<NicePlace>>() {
+        mainActivityViewModel.getNicePlaces().observe(this, new Observer<List<PlaceCategory>>() {
             @Override
-            public void onChanged(@Nullable List<NicePlace> nicePlaces) {
+            public void onChanged(@Nullable List<PlaceCategory> nicePlaces) {
                 recyclerAdapter.notifyDataSetChanged();
             }
         });
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NicePlaceRecycler
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivityViewModel.addNewValue(new NicePlace("Washington", "https://i.imgur.com/ZcLLrkY.jpg","Talent she for lively eat led sister. Entrance strongly packages she out rendered get quitting denoting led. Dwelling confined improved it he no doubtful raptures. Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated. Worth of do doubt shall it their. Extensive existence up me contained he pronounce do. Excellence inquietude assistance precaution any impression man sufficient. "));
+                mainActivityViewModel.addNewValue(0,new NicePlace("Washington", "https://i.imgur.com/ZcLLrkY.jpg","Talent she for lively eat led sister. Entrance strongly packages she out rendered get quitting denoting led. Dwelling confined improved it he no doubtful raptures. Several carried through an of up attempt gravity. Situation to be at offending elsewhere distrusts if. Particular use for considered projection cultivated. Worth of do doubt shall it their. Extensive existence up me contained he pronounce do. Excellence inquietude assistance precaution any impression man sufficient. "));
             }
         });
 
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NicePlaceRecycler
     @Override
     public void onPlaceClickListener(int position) {
         Intent i = new Intent(this,PlaceDetailsActivity.class);
-        i.putExtra(PlaceDetailsActivity.SELECTED_PLACE,mainActivityViewModel.getNicePlaces().getValue().get(position));
+        //i.putExtra(PlaceDetailsActivity.SELECTED_PLACE,mainActivityViewModel.getNicePlaces().getValue().get(position));
         startActivity(i);
     }
 }
